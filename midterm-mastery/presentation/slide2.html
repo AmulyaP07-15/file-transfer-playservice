@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1920">
+<title>File Transfer Service, Experiment Presentation</title>
+<meta name="hz:slide-selector" content=".slide">
+<meta name="hz:canvas-width" content="1920">
+<meta name="hz:canvas-height" content="1080">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --espresso:#2B1A12; --cream:#FDF8F1; --orange:#D9622B; --gold:#E8A23D;
+  --ink:#241309; --body:#45474d; --muted:#8a827a;
+  --card:#ffffff; --cborder:#E7E0D5; --peach:#FBE7D8; --peachb:#E6B894;
+  --rust:#8A3D1C; --rust2:#A0522D; --ok:#2f8a3e; --fail:#c0442a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#000;}
+.slide{position:relative; width:1920px; height:1080px; overflow:hidden;
+  font-family:'Inter',Arial,sans-serif;}
+.title,.ctitle,.pill,.opill{font-family:'Poppins','Inter',Arial,sans-serif;}
+
+/* dark title slide */
+.title-slide{background:var(--espresso); color:#F3ECE4; padding:110px 130px;}
+.pill{display:inline-block; background:var(--gold); color:#2b1a12; font-weight:700;
+  font-size:22px; letter-spacing:3px; text-transform:uppercase; padding:10px 24px; border-radius:999px;}
+.title{font-weight:800; color:#fff; line-height:1.02;}
+.t-xl{font-size:150px;}
+.accent-bar{width:90px; height:7px; background:var(--gold); border-radius:4px;}
+.circle{position:absolute; border-radius:50%;}
+.rsq{position:absolute; border-radius:22px;}
+.gold{color:var(--gold);}
+
+/* light content slides */
+.cslide{background:var(--cream); color:var(--body); padding:94px 120px 70px;}
+.topbar{position:absolute; top:0; left:0; width:100%; height:12px;
+  background:linear-gradient(90deg,var(--orange),var(--gold));}
+.opill{display:inline-block; background:var(--orange); color:#fff; font-weight:700;
+  font-size:21px; letter-spacing:3px; text-transform:uppercase; padding:9px 22px; border-radius:999px;}
+.ctitle{font-weight:800; color:var(--ink); line-height:1.04; font-size:72px;}
+.lead{font-size:30px; line-height:1.45; color:var(--body);}
+.body{font-size:29px; line-height:1.45; color:var(--body);}
+.small{font-size:23px; line-height:1.42;}
+.muted{color:var(--muted);}
+.ink{color:var(--ink);}
+.foot{position:absolute; bottom:46px; left:120px; color:var(--muted); font-size:22px;}
+.pagenum{position:absolute; bottom:40px; right:70px; width:50px; height:50px; border-radius:50%;
+  background:var(--espresso); color:#fff; font-weight:700; font-size:24px;
+  display:flex; align-items:center; justify-content:center; font-family:'Poppins',sans-serif;}
+ul.b{list-style:none;}
+ul.b li{position:relative; padding-left:38px; margin-bottom:18px; font-size:29px; color:var(--body);}
+ul.b li::before{content:""; position:absolute; left:0; top:12px; width:15px; height:15px;
+  background:var(--orange); border-radius:3px;}
+ul.b li b{color:var(--ink);}
+.card{background:var(--card); border:1px solid var(--cborder); border-radius:16px; padding:14px;
+  box-shadow:0 10px 30px rgba(43,26,18,.08);}
+.card img{display:block; width:100%; height:auto; border-radius:8px;}
+.cap{text-align:center; color:var(--muted); font-size:22px; margin-top:8px;}
+table{border-collapse:collapse; width:100%; font-size:26px;}
+th{color:var(--orange); text-align:left; font-weight:700; padding:12px 16px; border-bottom:2px solid var(--cborder);}
+td{padding:11px 16px; border-bottom:1px solid var(--cborder); color:var(--ink);}
+.ok{color:var(--ok); font-weight:700;}
+.fail{color:var(--fail); font-weight:700;}
+.finding{background:var(--peach); border-left:7px solid var(--orange); border-radius:12px;
+  padding:20px 26px; color:var(--ink);}
+.finding .em{color:var(--orange); font-weight:700;}
+.cols{display:flex; gap:52px;}
+.chip{display:inline-block; background:#fff; border:1px solid var(--cborder); border-radius:10px;
+  padding:8px 16px; font-size:23px; margin:4px 6px 4px 0; color:var(--ink);}
+.chip.hot{background:var(--peach); border-color:var(--peachb); color:var(--fail); font-weight:700;}
+.chip.gld{color:var(--orange); font-weight:700;}
+.arch{display:flex; align-items:center; gap:10px; flex-wrap:nowrap;}
+.node{background:#fff; border:1.5px solid var(--cborder); border-radius:14px; padding:15px 16px; text-align:center; min-width:120px;}
+.node.lb{background:var(--peach); border-color:var(--peachb);}
+.node .n-t{color:var(--ink); font-weight:700; font-size:26px;}
+.node .n-s{color:var(--muted); font-size:19px; margin-top:4px;}
+.arrow{color:var(--orange); font-size:34px; font-weight:700;}
+.num{font-family:'Poppins',sans-serif; font-weight:800; font-size:62px; color:var(--orange); line-height:1;}
+@media print{
+  @page{size:1920px 1080px; margin:0;}
+  html,body{background:#fff;}
+  .slide{page-break-after:always; break-after:page;}
+  .slide:last-child{page-break-after:auto; break-after:auto;}
+}
+</style>
+</head>
+<body>
+
+<section class="slide cslide">
+  <div class="topbar"></div>
+  <span class="opill">The Service</span>
+  <div class="ctitle" style="margin-top:24px;">How the service works</div>
+  <div class="lead" style="margin-top:22px;width:1560px;">A client asks for a file over HTTP. The gateway fetches it from the
+    backend over UDP in 64 byte chunks, up to about 4 MB. It answers 200, 404, 503 busy, or 504 no answer.</div>
+  <div class="arch" style="margin-top:66px;">
+    <div class="node"><div class="n-t">Client</div><div class="n-s">Locust, curl</div></div>
+    <div class="arrow">&rarr;</div>
+    <div class="node lb"><div class="n-t">ALB</div><div class="n-s">scales on request count</div></div>
+    <div class="arrow">&rarr;</div>
+    <div class="node"><div class="n-t">Gateway</div><div class="n-s">2 to 4 tasks, inflight 4</div></div>
+    <div class="arrow">&rarr;</div>
+    <div class="node lb"><div class="n-t">NLB</div><div class="n-s">UDP, no metric</div></div>
+    <div class="arrow">&rarr;</div>
+    <div class="node"><div class="n-t">Backend</div><div class="n-s">2 to 4 tasks, CPU 60%</div></div>
+    <div class="arrow">&rarr;</div>
+    <div class="node"><div class="n-t">S3</div><div class="n-s">file source</div></div>
+  </div>
+  <div class="finding" style="margin-top:70px;width:1500px;font-size:28px;">On AWS everything runs as Fargate tasks. The gateway and
+    backend each autoscale, but on <span class="em">different signals</span>, which turns out to matter a lot.</div>
+  <div class="foot">File Transfer Service, Empirical Evaluation</div><div class="pagenum">2</div>
+</section>
+</body></html>

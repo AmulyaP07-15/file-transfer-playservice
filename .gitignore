@@ -46,3 +46,11 @@ e2e-results/
 
 # Built programs
 bin/
+
+# midterm-mastery working files
+midterm-mastery/.venv/
+midterm-mastery/testfiles/
+midterm-mastery/logs/
+midterm-mastery/.local_pids
+__pycache__/
+*.pyc
