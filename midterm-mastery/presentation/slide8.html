@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1920">
+<title>File Transfer Service, Experiment Presentation</title>
+<meta name="hz:slide-selector" content=".slide">
+<meta name="hz:canvas-width" content="1920">
+<meta name="hz:canvas-height" content="1080">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --espresso:#2B1A12; --cream:#FDF8F1; --orange:#D9622B; --gold:#E8A23D;
+  --ink:#241309; --body:#45474d; --muted:#8a827a;
+  --card:#ffffff; --cborder:#E7E0D5; --peach:#FBE7D8; --peachb:#E6B894;
+  --rust:#8A3D1C; --rust2:#A0522D; --ok:#2f8a3e; --fail:#c0442a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#000;}
+.slide{position:relative; width:1920px; height:1080px; overflow:hidden;
+  font-family:'Inter',Arial,sans-serif;}
+.title,.ctitle,.pill,.opill{font-family:'Poppins','Inter',Arial,sans-serif;}
+
+/* dark title slide */
+.title-slide{background:var(--espresso); color:#F3ECE4; padding:110px 130px;}
+.pill{display:inline-block; background:var(--gold); color:#2b1a12; font-weight:700;
+  font-size:22px; letter-spacing:3px; text-transform:uppercase; padding:10px 24px; border-radius:999px;}
+.title{font-weight:800; color:#fff; line-height:1.02;}
+.t-xl{font-size:150px;}
+.accent-bar{width:90px; height:7px; background:var(--gold); border-radius:4px;}
+.circle{position:absolute; border-radius:50%;}
+.rsq{position:absolute; border-radius:22px;}
+.gold{color:var(--gold);}
+
+/* light content slides */
+.cslide{background:var(--cream); color:var(--body); padding:94px 120px 70px;}
+.topbar{position:absolute; top:0; left:0; width:100%; height:12px;
+  background:linear-gradient(90deg,var(--orange),var(--gold));}
+.opill{display:inline-block; background:var(--orange); color:#fff; font-weight:700;
+  font-size:21px; letter-spacing:3px; text-transform:uppercase; padding:9px 22px; border-radius:999px;}
+.envtag{display:inline-block; margin-left:14px; vertical-align:middle; border:2px solid var(--orange);
+  color:var(--orange); font-weight:700; font-size:17px; letter-spacing:2px; text-transform:uppercase;
+  padding:5px 14px; border-radius:999px; font-family:'Poppins',sans-serif;}
+.ctitle{font-weight:800; color:var(--ink); line-height:1.04; font-size:72px;}
+.lead{font-size:30px; line-height:1.45; color:var(--body);}
+.body{font-size:29px; line-height:1.45; color:var(--body);}
+.small{font-size:23px; line-height:1.42;}
+.muted{color:var(--muted);}
+.ink{color:var(--ink);}
+.foot{position:absolute; bottom:46px; left:120px; color:var(--muted); font-size:22px;}
+.pagenum{position:absolute; bottom:40px; right:70px; width:50px; height:50px; border-radius:50%;
+  background:var(--espresso); color:#fff; font-weight:700; font-size:24px;
+  display:flex; align-items:center; justify-content:center; font-family:'Poppins',sans-serif;}
+ul.b{list-style:none;}
+ul.b li{position:relative; padding-left:38px; margin-bottom:18px; font-size:29px; color:var(--body);}
+ul.b li::before{content:""; position:absolute; left:0; top:12px; width:15px; height:15px;
+  background:var(--orange); border-radius:3px;}
+ul.b li b{color:var(--ink);}
+.card{background:var(--card); border:1px solid var(--cborder); border-radius:16px; padding:14px;
+  box-shadow:0 10px 30px rgba(43,26,18,.08);}
+.card img{display:block; width:100%; height:auto; border-radius:8px;}
+.cap{text-align:center; color:var(--muted); font-size:22px; margin-top:8px;}
+table{border-collapse:collapse; width:100%; font-size:26px;}
+th{color:var(--orange); text-align:left; font-weight:700; padding:12px 16px; border-bottom:2px solid var(--cborder);}
+td{padding:11px 16px; border-bottom:1px solid var(--cborder); color:var(--ink);}
+.ok{color:var(--ok); font-weight:700;}
+.fail{color:var(--fail); font-weight:700;}
+.finding{background:var(--peach); border-left:7px solid var(--orange); border-radius:12px;
+  padding:20px 26px; color:var(--ink);}
+.finding .em{color:var(--orange); font-weight:700;}
+.cols{display:flex; gap:52px;}
+.chip{display:inline-block; background:#fff; border:1px solid var(--cborder); border-radius:10px;
+  padding:8px 16px; font-size:23px; margin:4px 6px 4px 0; color:var(--ink);}
+.chip.hot{background:var(--peach); border-color:var(--peachb); color:var(--fail); font-weight:700;}
+.chip.gld{color:var(--orange); font-weight:700;}
+.arch{display:flex; align-items:center; gap:10px; flex-wrap:nowrap;}
+.node{background:#fff; border:1.5px solid var(--cborder); border-radius:14px; padding:15px 16px; text-align:center; min-width:120px;}
+.node.lb{background:var(--peach); border-color:var(--peachb);}
+.node .n-t{color:var(--ink); font-weight:700; font-size:26px;}
+.node .n-s{color:var(--muted); font-size:19px; margin-top:4px;}
+.arrow{color:var(--orange); font-size:34px; font-weight:700;}
+.num{font-family:'Poppins',sans-serif; font-weight:800; font-size:62px; color:var(--orange); line-height:1;}
+@media print{
+  @page{size:1920px 1080px; margin:0;}
+  html,body{background:#fff;}
+  .slide{page-break-after:always; break-after:page;}
+  .slide:last-child{page-break-after:auto; break-after:auto;}
+}
+</style>
+</head>
+<body>
+
+<section class="slide cslide">
+  <div class="topbar"></div>
+  <span class="opill">Limitations and next steps</span>
+  <div class="ctitle" style="margin-top:24px;">What I would test next</div>
+  <div class="cols" style="margin-top:52px;">
+    <div style="width:720px;">
+      <div class="body" style="color:var(--orange);font-weight:700;margin-bottom:18px;">Limitations</div>
+      <ul class="b">
+        <li>20 downloads per level shows the cliffs but does not put error bars on the edges</li>
+        <li>Experiment 3 effectively ended near 15 minutes, and I did not wait for the slow scale in</li>
+      </ul>
+    </div>
+    <div style="width:740px;">
+      <div class="body" style="color:var(--orange);font-weight:700;margin-bottom:18px;">What I would test next</div>
+      <ul class="b">
+        <li>Finer loss levels around 1 to 2 percent, with more repeats</li>
+        <li>Raise the gateway max inflight and run the load test again</li>
+        <li>Change the backend scaling signal from CPU to active transfers or NLB flow count</li>
+      </ul>
+    </div>
+  </div>
+  <div class="finding" style="position:absolute;bottom:150px;left:120px;width:1680px;font-size:28px;">All data, charts, and code
+    are in the repo under the <span class="em">midterm mastery</span> folder.</div>
+  <div class="foot">File Transfer Service, Empirical Evaluation</div><div class="pagenum">8</div>
+</section>
+</body></html>

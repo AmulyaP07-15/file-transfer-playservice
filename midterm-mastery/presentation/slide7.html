@@ -94,27 +94,26 @@ td{padding:11px 16px; border-bottom:1px solid var(--cborder); color:var(--ink);}
 
 <section class="slide cslide">
   <div class="topbar"></div>
-  <span class="opill">Limitations and next steps</span>
-  <div class="ctitle" style="margin-top:24px;">What I would test next</div>
-  <div class="cols" style="margin-top:52px;">
-    <div style="width:720px;">
-      <div class="body" style="color:var(--orange);font-weight:700;margin-bottom:18px;">Limitations</div>
-      <ul class="b">
-        <li>20 downloads per level shows the cliffs but does not put error bars on the edges</li>
-        <li>Experiment 3 effectively ended near 15 minutes, and I did not wait for the slow scale in</li>
-      </ul>
+  <span class="opill">What this reveals</span>
+  <div class="ctitle" style="margin-top:24px;">Three ways it breaks</div>
+  <div style="margin-top:60px;width:1540px;">
+    <div style="display:flex;gap:30px;align-items:flex-start;margin-bottom:46px;">
+      <div class="num">1</div>
+      <div class="body"><span class="ink" style="font-weight:700;">It cannot tolerate loss on large files.</span>
+        The chunked UDP protocol with a fixed retry budget stops converging once more than a few chunks go missing.</div>
     </div>
-    <div style="width:740px;">
-      <div class="body" style="color:var(--orange);font-weight:700;margin-bottom:18px;">What I would test next</div>
-      <ul class="b">
-        <li>Finer loss levels around 1 to 2 percent, with more repeats</li>
-        <li>Raise the gateway max inflight and run the load test again</li>
-        <li>Change the backend scaling signal from CPU to active transfers or NLB flow count</li>
-      </ul>
+    <div style="display:flex;gap:30px;align-items:flex-start;margin-bottom:46px;">
+      <div class="num">2</div>
+      <div class="body"><span class="ink" style="font-weight:700;">It scales on the wrong signal.</span>
+        The backend scales on CPU but is never CPU bound, so it never scales where the real work is.</div>
+    </div>
+    <div style="display:flex;gap:30px;align-items:flex-start;">
+      <div class="num">3</div>
+      <div class="body"><span class="ink" style="font-weight:700;">It sheds load early.</span>
+        The gateway allows only four transfers in flight per task, so it returns 503 well before it is truly saturated.
+        And the AWS network behaves like a lossy link even with no configured loss.</div>
     </div>
   </div>
-  <div class="finding" style="position:absolute;bottom:150px;left:120px;width:1680px;font-size:28px;">All data, charts, and code
-    are in the repo under the <span class="em">midterm mastery</span> folder.</div>
   <div class="foot">File Transfer Service, Empirical Evaluation</div><div class="pagenum">7</div>
 </section>
 </body></html>

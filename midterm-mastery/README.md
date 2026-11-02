@@ -69,6 +69,23 @@
 - Next, raise the gateway max inflight and run the load test again.
 - Next, change the backend scaling signal from CPU to active transfers or NLB flow count, and see whether it finally scales.
 
+## Findings and screenshots
+
+- Experiment 1 and 2 charts
+  - exp1-loss/chart_local.png, success rate and latency vs loss
+  - exp2-size/chart_local.png and chart_aws.png, success rate and latency vs file size
+- Experiment 3, load and autoscaling
+  - exp3-load/locust_report.html, the full Locust report (open it in a browser)
+  - exp3-load/locust_report_stats.jpg and locust_report_charts.jpg, screenshots of that Locust report
+  - exp3-load/chart_exp3_autoscaling.png, ECS running tasks vs the offered load over time
+  - exp3-load/chart_cloudwatch.png, the AWS side view, ALB request count and 5xx, response time, and ECS CPU
+  - exp3-load/task_counts.csv and locust_results_*.csv, the raw time series behind those charts
+
+## Monitoring note
+
+- For the AWS side metrics I used CloudWatch (ECS CPU per service, ALB request count, ALB response time), pulled with the AWS CLI and charted by exp3-load/plot_cloudwatch.py, rather than the Prometheus and Grafana stack from HW6.
+- CloudWatch is the native source for ECS and ALB metrics, so it is the authoritative place to read the autoscaling signals, and ECS CPU is exactly what the backend autoscaler itself watches.
+
 ## Files in this folder
 
 - **HOW_TO_RUN.md** exact commands in order to reproduce everything.
