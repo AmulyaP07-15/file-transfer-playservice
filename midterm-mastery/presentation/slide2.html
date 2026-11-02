@@ -40,6 +40,9 @@ body{background:#000;}
   background:linear-gradient(90deg,var(--orange),var(--gold));}
 .opill{display:inline-block; background:var(--orange); color:#fff; font-weight:700;
   font-size:21px; letter-spacing:3px; text-transform:uppercase; padding:9px 22px; border-radius:999px;}
+.envtag{display:inline-block; margin-left:14px; vertical-align:middle; border:2px solid var(--orange);
+  color:var(--orange); font-weight:700; font-size:17px; letter-spacing:2px; text-transform:uppercase;
+  padding:5px 14px; border-radius:999px; font-family:'Poppins',sans-serif;}
 .ctitle{font-weight:800; color:var(--ink); line-height:1.04; font-size:72px;}
 .lead{font-size:30px; line-height:1.45; color:var(--body);}
 .body{font-size:29px; line-height:1.45; color:var(--body);}
@@ -94,7 +97,8 @@ td{padding:11px 16px; border-bottom:1px solid var(--cborder); color:var(--ink);}
   <span class="opill">The Service</span>
   <div class="ctitle" style="margin-top:24px;">How the service works</div>
   <div class="lead" style="margin-top:22px;width:1560px;">A client asks for a file over HTTP. The gateway fetches it from the
-    backend over UDP in 64 byte chunks, up to about 4 MB. It answers 200, 404, 503 busy, or 504 no answer.</div>
+    backend over UDP in 64 byte chunks, up to about 4 MB. Replies are 200 ok, 404 not found, 503 busy (no free
+    transfer slot on the gateway), or 504 (the backend never finished the transfer).</div>
   <div class="arch" style="margin-top:66px;">
     <div class="node"><div class="n-t">Client</div><div class="n-s">Locust, curl</div></div>
     <div class="arrow">&rarr;</div>
@@ -105,11 +109,14 @@ td{padding:11px 16px; border-bottom:1px solid var(--cborder); color:var(--ink);}
     <div class="node lb"><div class="n-t">NLB</div><div class="n-s">UDP, no metric</div></div>
     <div class="arrow">&rarr;</div>
     <div class="node"><div class="n-t">Backend</div><div class="n-s">2 to 4 tasks, CPU 60%</div></div>
-    <div class="arrow">&rarr;</div>
-    <div class="node"><div class="n-t">S3</div><div class="n-s">file source</div></div>
+    <div class="arrow">&harr;</div>
+    <div class="node"><div class="n-t">S3</div><div class="n-s">backend reads files</div></div>
   </div>
-  <div class="finding" style="margin-top:70px;width:1500px;font-size:28px;">On AWS everything runs as Fargate tasks. The gateway and
-    backend each autoscale, but on <span class="em">different signals</span>, which turns out to matter a lot.</div>
+  <div class="finding" style="margin-top:52px;width:1600px;font-size:27px;">
+    <b class="ink">Why these three experiments.</b> Loss, size, and load probe protocol reliability, protocol
+    scalability, and deployment scalability. I hold the retries (5 tries, 5 rounds) and max inflight (4) fixed and
+    vary one thing at a time. On AWS the gateway and backend autoscale on
+    <span class="em">different signals</span>, which Experiment 3 shows really matters.</div>
   <div class="foot">File Transfer Service, Empirical Evaluation</div><div class="pagenum">2</div>
 </section>
 </body></html>

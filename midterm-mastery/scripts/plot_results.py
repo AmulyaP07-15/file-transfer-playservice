@@ -12,6 +12,13 @@ import matplotlib
 matplotlib.use("Agg")  # save the plot to a file instead of opening a window
 import matplotlib.pyplot as plt
 
+# bigger fonts so the chart is readable when it is shrunk onto a slide
+plt.rcParams.update({
+    "font.size": 16, "axes.titlesize": 19, "axes.labelsize": 16,
+    "xtick.labelsize": 15, "ytick.labelsize": 15, "legend.fontsize": 15,
+    "lines.linewidth": 2.5, "lines.markersize": 9,
+})
+
 
 def main():
     summary_csv = sys.argv[1]
@@ -32,7 +39,7 @@ def main():
     # plot against evenly spaced positions, then label them with the real values
     x = range(len(x_labels))
 
-    plt.figure(figsize=(12, 5))
+    plt.figure(figsize=(13, 5.6))
 
     # left panel, reliability
     plt.subplot(1, 2, 1)

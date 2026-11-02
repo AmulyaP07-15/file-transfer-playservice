@@ -15,6 +15,13 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
+# bigger fonts so the chart stays readable when it is shrunk onto a slide
+plt.rcParams.update({
+    "font.size": 16, "axes.titlesize": 18, "axes.labelsize": 16,
+    "xtick.labelsize": 14, "ytick.labelsize": 14, "legend.fontsize": 15,
+    "lines.linewidth": 2.6,
+})
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 # the staged load I drove with Locust (from shapes.py), as (minute, users).
@@ -47,7 +54,7 @@ def main():
 
     series = load_tasks(tasks_csv)
 
-    fig, ax = plt.subplots(figsize=(10, 5))
+    fig, ax = plt.subplots(figsize=(11, 5.8))
 
     # running tasks per service, step plot since the count changes in jumps
     colors = {"gateway": "blue", "backend": "green"}
@@ -71,7 +78,7 @@ def main():
     lines2, labels2 = ax2.get_legend_handles_labels()
     ax.legend(lines1 + lines2, labels1 + labels2, loc="upper left")
 
-    ax.set_title("Exp 3 autoscaling, ECS running tasks vs offered load (from ECS service polling)")
+    ax.set_title("ECS running tasks vs offered load")
     fig.tight_layout()
     fig.savefig(out_png, dpi=150)
     print(f"wrote {out_png}")
